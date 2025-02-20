@@ -1,0 +1,9 @@
+apiVersion: taloshd.crossplane.io/v1alpha1
+kind: Server
+metadata:
+  name: server01
+spec:
+  forProvider:
+    configurableField: test
+  providerConfigRef:
+    name: talos-hetnzer-provider

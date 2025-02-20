@@ -84,6 +84,7 @@ build.init: $(UP)
 # try running the binary directly with different arguments.
 run: go.build
 	@$(INFO) Running Crossplane locally out-of-cluster . . .
+	@$(KUBECTL) apply -R -f package/crds
 	@# To see other arguments that can be provided, run the command with --help instead
 	$(GO_OUT_DIR)/provider --debug
 

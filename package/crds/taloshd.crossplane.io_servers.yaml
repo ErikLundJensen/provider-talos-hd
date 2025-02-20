@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: servers.taloshd.taloshd.crossplane.io
+  name: servers.taloshd.crossplane.io
 spec:
-  group: taloshd.taloshd.crossplane.io
+  group: taloshd.crossplane.io
   names:
     categories:
     - crossplane
