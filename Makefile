@@ -92,7 +92,7 @@ dev: $(KIND) $(KUBECTL)
 	@$(KIND) create cluster --name=$(PROJECT_NAME)-dev
 	@$(KUBECTL) cluster-info --context kind-$(PROJECT_NAME)-dev
 	@$(INFO) Installing Crossplane CRDs
-	@$(KUBECTL) apply --server-side -k https://github.com/crossplane/crossplane//cluster?ref=master
+	helm install crossplane --namespace crossplane-system --create-namespace crossplane-stable/crossplane --version 1.19.0
 	@$(INFO) Installing Provider TalosHD CRDs
 	@$(KUBECTL) apply -R -f package/crds
 	@$(INFO) Starting Provider TalosHD controllers
