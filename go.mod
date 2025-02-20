@@ -1,4 +1,4 @@
-module github.com/crossplane/provider-taloshd
+module github.com/eriklundjensen/provider-talos-hd
 
 go 1.21
 
@@ -16,7 +16,7 @@ require (
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
-	github.com/alecthomas/taloshd v0.0.0-20190718012654-fb15b899a751 // indirect
+	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect

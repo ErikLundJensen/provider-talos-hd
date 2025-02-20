@@ -3,8 +3,8 @@ kind: Provider
 metadata:
   name: provider-taloshd
   annotations:
-    meta.crossplane.io/maintainer: Crossplane Maintainers <info@crossplane.io>
-    meta.crossplane.io/source: github.com/crossplane/provider-taloshd
+    meta.crossplane.io/maintainer: Crossplane Maintainers <TODO>
+    meta.crossplane.io/source: github.com/eriklundjensen/provider-talos-hd
     meta.crossplane.io/license: Apache-2.0
     meta.crossplane.io/description: |
       A taloshd that can be used to create Crossplane providers.

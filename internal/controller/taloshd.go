@@ -20,8 +20,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/controller"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	"github.com/crossplane/provider-taloshd/internal/controller/config"
-	"github.com/crossplane/provider-taloshd/internal/controller/taloshd"
+	"github.com/eriklundjensen/provider-talos-hd/internal/controller/config"
 )
 
 // Setup creates all TalosHD controllers with the supplied logger and adds them to
@@ -29,7 +28,6 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		config.Setup,
-		taloshd.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

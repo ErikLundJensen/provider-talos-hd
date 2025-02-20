@@ -27,7 +27,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "taloshd.taloshd.crossplane.io"
+	Group   = "taloshd.crossplane.io"
 	Version = "v1alpha1"
 )
 

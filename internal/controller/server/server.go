@@ -32,13 +32,13 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 
-	"github.com/crossplane/provider-taloshd/apis/taloshd/v1alpha1"
-	apisv1alpha1 "github.com/crossplane/provider-taloshd/apis/v1alpha1"
-	"github.com/crossplane/provider-taloshd/internal/features"
+	"github.com/eriklundjensen/provider-talos-hd/apis/server/v1alpha1"
+	apisv1alpha1 "github.com/eriklundjensen/provider-talos-hd/apis/v1alpha1"
+	"github.com/eriklundjensen/provider-talos-hd/internal/features"
 )
 
 const (
-	errNotserver    = "managed resource is not a server custom resource"
+	errNotServer    = "managed resource is not a server custom resource"
 	errTrackPCUsage = "cannot track ProviderConfig usage"
 	errGetPC        = "cannot get ProviderConfig"
 	errGetCreds     = "cannot get credentials"
@@ -55,7 +55,7 @@ var (
 
 // Setup adds a controller that reconciles server managed resources.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
-	name := managed.ControllerName(v1alpha1.serverGroupKind)
+	name := managed.ControllerName(v1alpha1.ServerGroupKind)
 
 	cps := []managed.ConnectionPublisher{managed.NewAPISecretPublisher(mgr.GetClient(), mgr.GetScheme())}
 	if o.Features.Enabled(features.EnableAlphaExternalSecretStores) {
@@ -63,7 +63,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	}
 
 	r := managed.NewReconciler(mgr,
-		resource.ManagedKind(v1alpha1.serverGroupVersionKind),
+		resource.ManagedKind(v1alpha1.ServerGroupVersionKind),
 		managed.WithExternalConnecter(&connector{
 			kube:         mgr.GetClient(),
 			usage:        resource.NewProviderConfigUsageTracker(mgr.GetClient(), &apisv1alpha1.ProviderConfigUsage{}),
@@ -77,7 +77,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
 		WithEventFilter(resource.DesiredStateChanged()).
-		For(&v1alpha1.server{}).
+		For(&v1alpha1.Server{}).
 		Complete(ratelimiter.NewReconciler(name, r, o.GlobalRateLimiter))
 }
 
@@ -95,9 +95,9 @@ type connector struct {
 // 3. Getting the credentials specified by the ProviderConfig.
 // 4. Using the credentials to form a client.
 func (c *connector) Connect(ctx context.Context, mg resource.Managed) (managed.ExternalClient, error) {
-	cr, ok := mg.(*v1alpha1.server)
+	cr, ok := mg.(*v1alpha1.Server)
 	if !ok {
-		return nil, errors.New(errNotserver)
+		return nil, errors.New(errNotServer)
 	}
 
 	if err := c.usage.Track(ctx, mg); err != nil {
@@ -132,9 +132,9 @@ type external struct {
 }
 
 func (c *external) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
-	cr, ok := mg.(*v1alpha1.server)
+	cr, ok := mg.(*v1alpha1.Server)
 	if !ok {
-		return managed.ExternalObservation{}, errors.New(errNotserver)
+		return managed.ExternalObservation{}, errors.New(errNotServer)
 	}
 
 	// These fmt statements should be removed in the real implementation.
@@ -158,9 +158,9 @@ func (c *external) Observe(ctx context.Context, mg resource.Managed) (managed.Ex
 }
 
 func (c *external) Create(ctx context.Context, mg resource.Managed) (managed.ExternalCreation, error) {
-	cr, ok := mg.(*v1alpha1.server)
+	cr, ok := mg.(*v1alpha1.Server)
 	if !ok {
-		return managed.ExternalCreation{}, errors.New(errNotserver)
+		return managed.ExternalCreation{}, errors.New(errNotServer)
 	}
 
 	fmt.Printf("Creating: %+v", cr)
@@ -173,9 +173,9 @@ func (c *external) Create(ctx context.Context, mg resource.Managed) (managed.Ext
 }
 
 func (c *external) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
-	cr, ok := mg.(*v1alpha1.server)
+	cr, ok := mg.(*v1alpha1.Server)
 	if !ok {
-		return managed.ExternalUpdate{}, errors.New(errNotserver)
+		return managed.ExternalUpdate{}, errors.New(errNotServer)
 	}
 
 	fmt.Printf("Updating: %+v", cr)
@@ -188,9 +188,9 @@ func (c *external) Update(ctx context.Context, mg resource.Managed) (managed.Ext
 }
 
 func (c *external) Delete(ctx context.Context, mg resource.Managed) error {
-	cr, ok := mg.(*v1alpha1.server)
+	cr, ok := mg.(*v1alpha1.Server)
 	if !ok {
-		return errors.New(errNotserver)
+		return errors.New(errNotServer)
 	}
 
 	fmt.Printf("Deleting: %+v", cr)

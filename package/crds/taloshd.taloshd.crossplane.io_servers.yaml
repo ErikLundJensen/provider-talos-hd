@@ -12,8 +12,8 @@ spec:
     - crossplane
     - managed
     - taloshd
-    kind: server
-    listKind: serverList
+    kind: Server
+    listKind: ServerList
     plural: servers
     singular: server
   scope: Cluster
@@ -54,7 +54,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: A serverSpec defines the desired state of a server.
+            description: A ServerSpec defines the desired state of a server.
             properties:
               deletionPolicy:
                 default: Delete
@@ -71,7 +71,7 @@ spec:
                 - Delete
                 type: string
               forProvider:
-                description: serverParameters are the configurable fields of a server.
+                description: ServerParameters are the configurable fields of a server.
                 properties:
                   configurableField:
                     type: string
@@ -246,10 +246,10 @@ spec:
             - forProvider
             type: object
           status:
-            description: A serverStatus represents the observed state of a server.
+            description: A ServerStatus represents the observed state of a server.
             properties:
               atProvider:
-                description: serverObservation are the observable fields of a server.
+                description: ServerObservation are the observable fields of a server.
                 properties:
                   observableField:
                     type: string

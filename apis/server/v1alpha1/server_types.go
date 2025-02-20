@@ -25,26 +25,26 @@ import (
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-// serverParameters are the configurable fields of a server.
-type serverParameters struct {
+// ServerParameters are the configurable fields of a server.
+type ServerParameters struct {
 	ConfigurableField string `json:"configurableField"`
 }
 
-// serverObservation are the observable fields of a server.
-type serverObservation struct {
+// ServerObservation are the observable fields of a server.
+type ServerObservation struct {
 	ObservableField string `json:"observableField,omitempty"`
 }
 
-// A serverSpec defines the desired state of a server.
-type serverSpec struct {
+// A ServerSpec defines the desired state of a server.
+type ServerSpec struct {
 	xpv1.ResourceSpec `json:",inline"`
-	ForProvider       serverParameters `json:"forProvider"`
+	ForProvider       ServerParameters `json:"forProvider"`
 }
 
-// A serverStatus represents the observed state of a server.
-type serverStatus struct {
+// A ServerStatus represents the observed state of a server.
+type ServerStatus struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider          serverObservation `json:"atProvider,omitempty"`
+	AtProvider          ServerObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -56,31 +56,31 @@ type serverStatus struct {
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,taloshd}
-type server struct {
+type Server struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   serverSpec   `json:"spec"`
-	Status serverStatus `json:"status,omitempty"`
+	Spec   ServerSpec   `json:"spec"`
+	Status ServerStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// serverList contains a list of server
-type serverList struct {
+// ServerList contains a list of server
+type ServerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []server `json:"items"`
+	Items           []Server `json:"items"`
 }
 
-// server type metadata.
+// Server type metadata.
 var (
-	serverKind             = reflect.TypeOf(server{}).Name()
-	serverGroupKind        = schema.GroupKind{Group: Group, Kind: serverKind}.String()
-	serverKindAPIVersion   = serverKind + "." + SchemeGroupVersion.String()
-	serverGroupVersionKind = SchemeGroupVersion.WithKind(serverKind)
+	ServerKind             = reflect.TypeOf(Server{}).Name()
+	ServerGroupKind        = schema.GroupKind{Group: Group, Kind: ServerKind}.String()
+	ServerKindAPIVersion   = ServerKind + "." + SchemeGroupVersion.String()
+	ServerGroupVersionKind = SchemeGroupVersion.WithKind(ServerKind)
 )
 
 func init() {
-	SchemeBuilder.Register(&server{}, &serverList{})
+	SchemeBuilder.Register(&Server{}, &ServerList{})
 }

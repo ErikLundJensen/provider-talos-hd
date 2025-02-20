@@ -37,10 +37,10 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/ratelimiter"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 
-	"github.com/crossplane/provider-taloshd/apis"
-	"github.com/crossplane/provider-taloshd/apis/v1alpha1"
-	taloshd "github.com/crossplane/provider-taloshd/internal/controller"
-	"github.com/crossplane/provider-taloshd/internal/features"
+	"github.com/eriklundjensen/provider-talos-hd/apis"
+	"github.com/eriklundjensen/provider-talos-hd/apis/v1alpha1"
+	template "github.com/eriklundjensen/provider-talos-hd/internal/controller"
+	"github.com/eriklundjensen/provider-talos-hd/internal/features"
 )
 
 func main() {
@@ -126,6 +126,6 @@ func main() {
 		log.Info("Alpha feature enabled", "flag", features.EnableAlphaManagementPolicies)
 	}
 
-	kingpin.FatalIfError(taloshd.Setup(mgr, o), "Cannot setup TalosHD controllers")
+	kingpin.FatalIfError(template.Setup(mgr, o), "Cannot setup TalosHD controllers")
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
 }

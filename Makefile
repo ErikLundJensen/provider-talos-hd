@@ -1,7 +1,7 @@
 # ====================================================================================
 # Setup Project
-PROJECT_NAME := provider-taloshd
-PROJECT_REPO := github.com/crossplane/$(PROJECT_NAME)
+PROJECT_NAME := provider-talos-hd
+PROJECT_REPO := github.com/eriklundjensen/$(PROJECT_NAME)
 
 PLATFORMS := linux_amd64
 -include build/makelib/common.mk
